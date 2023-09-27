@@ -5,18 +5,96 @@ public class Main {
     public static void main(String[] args) throws SQLException {
             Main.open();
 //            Main.insert();
-        for (int i = 0; i < 3; i++) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println(counter + ". Please enter cat type: ");
-            String type = sc.next();
-            sc.nextLine();
-            Main.insert_type(type);
-        }
+//        for (int i = 0; i < 3; i++) {
+//            Scanner sc = new Scanner(System.in);
+//            System.out.println(counter + ". Please enter cat type: ");
+//            String type = sc.next();
+//            sc.nextLine();
+//            Main.insert_type(type);
+//        }
 //            Main.select();
-            Main.close();
+        int counter1 = 0;
+            while(counter1<types.length) {
+                try {
+                    String query = "INSERT INTO types (id, type) VALUES ('" + (counter1+1) + "', '"
+                            + types[counter1] + "')";
+                    Statement state = co.createStatement();
+                    state.executeUpdate(query);
+                    state.close();
+                    counter1++;
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    counter1++;
+                }
+
+            }
+        Main.close();
     }
     static Connection co;
     static int counter = 1;
+
+    static String[] types = new String[] {"Абиссинская кошка",
+            "Австралийский мист",
+            "Американская жесткошерстная",
+            "Американская короткошерстная",
+            "Американский бобтейл",
+            "Американский кёрл",
+            "Балинезийская кошка",
+            "Бенгальская кошка",
+            "Бирманская кошка",
+            "Бомбейская кошка",
+            "Бразильская короткошёрстная",
+            "Британская длинношерстная",
+            "Британская короткошерстная",
+            "Бурманская кошка",
+            "Бурмилла кошка",
+            "Гавана",
+            "Гималайская кошка",
+            "Девон-рекс",
+            "Донской сфинкс",
+            "Европейская короткошерстная",
+            "Египетская мау",
+            "Канадский сфинкс",
+            "Кимрик",
+            "Корат",
+            "Корниш-рекс",
+            "Курильский бобтейл",
+            "Лаперм",
+            "Манчкин",
+            "Мейн-ку́н",
+            "Меконгский бобтейл",
+            "Мэнкс кошка",
+            "Наполеон",
+            "Немецкий рекс",
+            "Нибелунг",
+            "Норвежская лесная кошка",
+            "Ориентальная кошка",
+            "Оцикет",
+            "Персидская кошка",
+            "Петерболд",
+            "Пиксибоб",
+            "Рагамаффин",
+            "Русская голубая кошка",
+            "Рэгдолл",
+            "Саванна",
+            "Селкирк-рекс",
+            "Сиамская кошка",
+            "Сибирская кошка",
+            "Сингапурская кошка",
+            "Скоттиш-фолд",
+            "Сноу-шу",
+            "Сомалийская кошка",
+            "Тайская кошка",
+            "Тойгер",
+            "Тонкинская кошка",
+            "Турецкая ангорская кошка",
+            "Турецкий ван",
+            "Украинский левкой",
+            "Чаузи",
+            "Шартрез",
+            "Экзотическая короткошерстная",
+            "Японский бобтейл"
+    };
     static void open() {
         try {
             Class.forName("org.sqlite.JDBC");

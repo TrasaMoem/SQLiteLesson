@@ -4,11 +4,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws SQLException {
             Main.open();
-            Main.insert();
+//            Main.insert();
+        for (int i = 0; i < 3; i++) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println(counter + ". Please enter cat type: ");
+            String type = sc.next();
+            sc.nextLine();
+            Main.insert_type(type);
+        }
 //            Main.select();
             Main.close();
     }
     static Connection co;
+    static int counter = 1;
     static void open() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -17,6 +25,19 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    static void insert_type(String type) {
+        try {
+            String query = "INSERT INTO types (id, type) VALUES ('" + counter + "', '" + type + "')";
+            Statement state = co.createStatement();
+            state.executeUpdate(query);
+            System.out.println("Row added");
+            state.close();
+            counter++;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
     static void select() {
         try {

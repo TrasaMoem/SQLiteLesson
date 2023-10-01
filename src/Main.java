@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
             Main.open();
 //            Main.insert();
 //        for (int i = 0; i < 3; i++) {
@@ -13,22 +13,34 @@ public class Main {
 //            Main.insert_type(type);
 //        }
 //            Main.select();
-        int counter1 = 0;
-            while(counter1<types.length) {
-                try {
-                    String query = "INSERT INTO types (id, type) VALUES ('" + (counter1+1) + "', '"
-                            + types[counter1] + "')";
-                    Statement state = co.createStatement();
-                    state.executeUpdate(query);
-                    state.close();
-                    counter1++;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    counter1++;
-                }
-
-            }
-        Main.close();
+//        Statement state1 = co.createStatement();
+//        String query1 = "SELECT count() FROM types";
+//        ResultSet rs = state1.executeQuery(query1);
+//        int counterByQuery = rs.getInt("count()");
+//        int counterInt = 0;
+//            while(counterInt<types.length) {
+//                try {
+//                    String query = "INSERT INTO types (id, type) VALUES ('" + (counterByQuery+1) + "', '"
+//                            + types[counterInt] + "')";
+//                    Statement state = co.createStatement();
+//                    state.executeUpdate(query);
+//                    state.close();
+//                    counterInt++; counterByQuery++;
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                    counterInt++; counterByQuery++;
+//                }
+//            }
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter id to delete: ");
+        int idDelete = scan.nextInt();
+//        deleteType(idDelete);
+        System.out.println("Enter id to update: ");
+        int id1 = scan.nextInt();
+        scan.nextLine();
+        System.out.println("Enter new type: ");
+        String newType = scan.next();
+        updateType(id1,newType);
     }
     static Connection co;
     static int counter = 1;
@@ -117,8 +129,29 @@ public class Main {
         }
 
     }
-    static void select() {
+    static void deleteType(int id) {
         try {
+            String query2 = "DELETE FROM types WHERE id = " + id;
+            Statement st2 = co.createStatement();
+            st2.executeUpdate(query2);
+            System.out.println("Type " + id + " has been deleted");
+            Main.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    static void updateType(int id, String newType) {
+        try {
+            String query3 = "UPDATE types SET type = '"+newType+"' WHERE id = '"+id+"'";
+            Statement state3 = co.createStatement();
+            state3.executeUpdate(query3);
+            System.out.println("Id " + id + " was updated, new type is: " + newType);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    static void select() {
+//        try {
 //            Statement statement = co.createStatement();
 //            String query = "SELECT name, phone FROM users ORDER BY name";
 //            ResultSet rs = statement.executeQuery (query);
@@ -129,9 +162,9 @@ public class Main {
 //            }
 //            rs.close();
 //            statement.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
     }
     static void insert() {
         try {
